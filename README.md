@@ -1,50 +1,29 @@
-# Active Directory Enumeration for Credential Gathering and Lateral Movement
+# ACTIVEDIRECTORY POWERSHELL MODULE OVERVIEW
 
-This guide demonstrates how to enumerate an Active Directory (AD) environment to gather valuable information and credentials that may assist in lateral movement within a network.
-First Tool – PowerShell Module
+The `ActiveDirectory` PowerShell module provides a comprehensive set of cmdlets that assist in managing and querying an Active Directory environment via the command line. With over 140 cmdlets available, it enables both administrators and security professionals to retrieve critical directory information without the need for third-party tools.
 
-We'll start by using the ActiveDirectory PowerShell module, a native tool that allows us to operate more stealthily, since it doesn't require external binaries.
-# Check if the Module is Available
+This guide focuses on a subset of cmdlets commonly used during directory enumeration in authorized environments. For broader exploration, users are encouraged to consult the module documentation and experiment in lab setups.
 
-First, verify if the required module is loaded:
+## VERIFYING MODULE AVAILABILITY
 
+Before using any of the Active Directory-specific commands, ensure that the module is available and properly loaded.
+
+To list all currently imported modules:
+
+```powershell
 Get-Module
+```
+This will return a list of loaded modules, including their names, versions, and available commands.
 
-If the ActiveDirectory module is not listed, import it with:
+If the ActiveDirectory module is not listed, load it using:
 
-Import-Module ActiveDirectory
+```Import-Module ActiveDirectory```
 
-# Gather Domain Information
+After loading, confirm it's active by running Get-Module again.
 
-To retrieve basic information about the current domain:
+~~~~PS C:\> Get-Module
 
-Get-ADDomain
-
-This will display details such as:
-
-    Domain name
-
-    Domain SID
-
-    Functional level
-
-    Parent/child domains
-
-# Enumerate Users with SPNs
-
-To find user accounts with Service Principal Names (often useful for Kerberoasting attacks):
-
-Get-ADUser -Filter {ServicePrincipalName -ne "$null"} -Properties ServicePrincipalName
-
-# Enumerate AD Groups
-
-To list all groups in the domain:
-
-Get-ADGroup -Filter * | Select-Object Name
-
-# Detailed Group Infos
-
-This command will show more detailed infos about the Group.
-
-Get-ADGroup -Identity "Backup Operators"
-
+ModuleType Version    Name                 ExportedCommands
+---------- -------    ----                 ----------------
+Manifest   1.0.1.0    ActiveDirectory      {Add-ADComputerServiceAccount, Get-ADUser, Get-ADGroup, ...}
+~~~~
