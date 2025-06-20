@@ -41,3 +41,10 @@ Get-ADUser -Filter {ServicePrincipalName -ne "$null"} -Properties ServicePrincip
 To list all groups in the domain:
 
 Get-ADGroup -Filter * | Select-Object Name
+
+# Detailed Group Infos
+
+This command will show more detailed infos about the Group.
+
+Get-ADGroup -Identity "Backup Operators"
+
